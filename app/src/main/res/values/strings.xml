@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">RestaurantApp</string>
     <string name="title_activity_maps">Map</string>
+    <string name="NAME" />
+    <string name="PHONE" />
+    <string name="ADDRESS" />
+    <string name="MAIL" />
 </resources>
