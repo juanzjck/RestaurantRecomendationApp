@@ -45,11 +45,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         minInput.setText("0");
         maxInput.setText("100");
         //config location default
+
+
         locations.add(new Locations("Cafe san blas", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 20.0, -0.2186399, -78.5072506, "df"));
         locations.add(new Locations("Museo de Arte Colonial", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 10.0, -0.2176353, -78.5131746, "df"));
         locations.add(new Locations("Panorama", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 5.0, -0.2146713, -78.5103162, "df"));
         locations.add(new Locations("Centro de Arte Contemporáneo de Quito", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 20.0, -0.2113522, -78.5070416, "df"));
+
+
         filteredLocations=locations;
+
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -69,6 +75,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
      * installed Google Play services and returned to the app.
      */
 
+
+
     //interactuable marker
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -84,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public boolean onMarkerClick(@NonNull Marker marker) {
         if(marker.getTitle()!="You"){
             Intent intent = new Intent(getApplicationContext(),DetaillRestaurant.class);
+
             startActivity(intent);
 
         }
@@ -115,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         if (location != null) {
                             LatLng marker = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.addMarker(new MarkerOptions().position(marker).title("You").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17.0f));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15.0f));
                         }
                     }
                 });

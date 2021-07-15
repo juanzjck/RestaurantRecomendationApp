@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-
+        android:name="com.orm.SugarApp"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -12,6 +12,18 @@
 
         >
         <activity android:name=".DetaillRestaurant"></activity>
+        <meta-data
+            android:name="DATABASE"
+            android:value="restaurantapp.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.example.restaurantapp" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,9 +46,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <meta-data
-            android:name="DATABASE"
-            android:value="restaurantapp.db" />
+
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

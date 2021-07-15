@@ -1,6 +1,10 @@
 package com.example.restaurantapp;
 
-public class Locations {
+import com.orm.SugarRecord;
+
+import java.io.Serializable;
+
+public class Locations  {
 
     private String title;
     private String address;
@@ -9,7 +13,10 @@ public class Locations {
     private Double lt;
     private Double ln;
     private String image;
+    // Default constructor is important!
+    public Locations() {
 
+    }
     public Locations(String title, String address, String description, Double budget, String image) {
         this.title = title;
         this.address = address;
