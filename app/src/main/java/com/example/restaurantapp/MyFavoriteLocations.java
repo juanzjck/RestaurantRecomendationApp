@@ -4,22 +4,23 @@ import com.orm.SugarRecord;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyFavoriteLocations extends SugarRecord implements Serializable {
-    private ArrayList<Locations> myFavoriteLocations;
+    private Locations myFavoriteLocation;
     // Default constructor is important!
     public MyFavoriteLocations() {
 
     }
-    public MyFavoriteLocations(ArrayList<Locations> myFavoriteLocations) {
-        this.myFavoriteLocations = myFavoriteLocations;
+    public MyFavoriteLocations(Locations myFavoriteLocations) {
+        this.myFavoriteLocation = myFavoriteLocations;
     }
 
-    public ArrayList<Locations> getMyFavoriteLocations() {
-        return myFavoriteLocations;
+    public Locations getMyFavoriteLocations() {
+        return this.myFavoriteLocation;
     }
 
-    public void setMyFavoriteLocations(ArrayList<Locations> myFavoriteLocations) {
-        this.myFavoriteLocations = myFavoriteLocations;
+    public void setMyFavoriteLocations(Locations myFavoriteLocation) {
+        this.myFavoriteLocation = myFavoriteLocation;
     }
 }

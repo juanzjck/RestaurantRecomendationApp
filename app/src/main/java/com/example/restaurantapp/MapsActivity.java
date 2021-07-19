@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -47,10 +49,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         //config location default
 
 
-        locations.add(new Locations("Cafe san blas", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 20.0, -0.2186399, -78.5072506, "df"));
-        locations.add(new Locations("Museo de Arte Colonial", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 10.0, -0.2176353, -78.5131746, "df"));
-        locations.add(new Locations("Panorama", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 5.0, -0.2146713, -78.5103162, "df"));
-        locations.add(new Locations("Centro de Arte Contemporáneo de Quito", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 20.0, -0.2113522, -78.5070416, "df"));
+        locations.add(new Locations(1,"Cafe san blas", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 20.0, -0.2186399, -78.5072506, "df"));
+        locations.add(new Locations(2,"Museo de Arte Colonial", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 10.0, -0.2176353, -78.5131746, "df"));
+        locations.add(new Locations(3,"Panorama", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 5.0, -0.2146713, -78.5103162, "df"));
+        locations.add(new Locations(4,"Centro de Arte Contemporáneo de Quito", "Jose de antepara E4-09", "Cafeteria tradicional de comida italiana, pizza, pastas y postres. \n Precio para todo los bolsillos", 20.0, -0.2113522, -78.5070416, "df"));
 
 
         filteredLocations=locations;
@@ -60,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
         mapFragment.getMapAsync(this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -88,12 +91,33 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
     }
 
+    //getLocation
+    public Locations getLocation(int id){
+
+        for (Locations location:locations) {
+            if(location.getId()==id){
+                return  location;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        if(marker.getTitle()!="You"){
-            Intent intent = new Intent(getApplicationContext(),DetaillRestaurant.class);
+        if(!marker.getSnippet().equals("You")){
+            Locations location=getLocation(Integer.parseInt(marker.getSnippet()));
+            if(location!=null){
+                Intent intent = new Intent(getApplicationContext(),DetaillRestaurant.class);
 
-            startActivity(intent);
+                intent.putExtra("title",location.getTitle());
+                intent.putExtra("description",location.getDescription());
+                intent.putExtra("budget",location.getBudget());
+                intent.putExtra("lt",location.getLt());
+                intent.putExtra("lg",location.getLn());
+                intent.putExtra("address",location.getAddress());
+                startActivity(intent);
+
+            }
 
         }
         return false;
@@ -123,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             LatLng marker = new LatLng(location.getLatitude(), location.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(marker).title("You").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            mMap.addMarker(new MarkerOptions().position(marker).title("You").snippet("You").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15.0f));
                         }
                     }
@@ -133,10 +157,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     //load markers
     public void loadMakers(){
         for (Locations location : filteredLocations) {
+
             // Add a marker in Sydney and move the camera
             LatLng marker = new LatLng(location.getLt(), location.getLn());
 
-            mMap.addMarker(new MarkerOptions().position(marker).title(location.getTitle()).snippet(location.getDescription()));
+            mMap.addMarker(new MarkerOptions().position(marker).title(location.getTitle()).snippet(""+location.getId()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
 
             mMap.setOnMarkerClickListener(this);
@@ -160,5 +185,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         loadMakers();
 
 
+    }
+
+
+    public void MyFavoriteLocationScreen(View view){
+        Intent intent = new Intent(getApplicationContext(),MyLocations.class);
+
+        startActivity(intent);
     }
 }

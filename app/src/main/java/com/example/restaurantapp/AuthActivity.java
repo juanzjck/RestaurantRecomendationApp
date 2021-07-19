@@ -49,7 +49,7 @@ public class AuthActivity extends AppCompatActivity {
                 String email = user.getEmail();
                 String userUID = user.getUid();
                 System.out.println("usuario: "+username+" email: "+email+ "user UID"+userUID);
-                startActivity(new Intent(this,MainActivity.class));
+                startActivity(new Intent(this,MapsActivity.class));
                 finish();
             } else {
                 finish();

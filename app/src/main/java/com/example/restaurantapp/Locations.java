@@ -1,10 +1,8 @@
 package com.example.restaurantapp;
 
-import com.orm.SugarRecord;
-
-import java.io.Serializable;
 
 public class Locations  {
+    private int id;
 
     private String title;
     private String address;
@@ -25,7 +23,8 @@ public class Locations  {
         this.image = image;
     }
 
-    public Locations(String title, String address, String description, Double budget, Double lt, Double ln, String image) {
+
+    public Locations(int id, String title, String address, String description, Double budget, Double lt, Double ln, String image) {
         this.title = title;
         this.address = address;
         this.description = description;
@@ -33,6 +32,7 @@ public class Locations  {
         this.lt = lt;
         this.ln = ln;
         this.image = image;
+        this.id = id;
     }
 
     public Double getLt() {
@@ -89,5 +89,13 @@ public class Locations  {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
